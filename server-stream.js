@@ -37,6 +37,7 @@
         
         async function onreq(req,res){
         
+                                                                        console.log('onreq',req.url,req.method);
             if(req.url==='/index.html' || req.url==='/'){
                   res.writeHead(200,{'content-type':'text/html'});
                   var stream  = fs.createReadStream('index.html');
@@ -47,7 +48,6 @@
             
             
             
-            console.log('onreq',req.url,req.method);
 /*
               if(req.method==='OPTIONS'){
                     var headers   = {
