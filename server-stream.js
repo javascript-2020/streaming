@@ -7,7 +7,7 @@
         
         var file    = './fast-buck.mp4';
         //var file    = "D:/movies/Star.Trek.Nemesis.2002.720p.BRrip.x264.YIFY.mp4";
-        var port    = 80;
+        var port    = process.env.PORT;
         
         
         var fh;
