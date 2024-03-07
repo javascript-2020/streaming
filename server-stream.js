@@ -5,9 +5,9 @@
         var fs      = require('fs');
         var fsp     = fs.promises;
         
-        var file    = '/work/video/faststart-star-trek.mp4';
+        var file    = './fast-buck.mp4';
         //var file    = "D:/movies/Star.Trek.Nemesis.2002.720p.BRrip.x264.YIFY.mp4";
-        var port    = 3012;
+        var port    = 80;
         
         
         var fh;
@@ -37,7 +37,17 @@
         
         async function onreq(req,res){
         
-                                                                        console.log('onreq',req.url,req.method);
+            if(req.url==='/index.html' || req.url==='/'){
+                  res.writeHead(200,{'content-type':'text/html'});
+                  var stream  = fs.createReadStream('index.html');
+                  stream.pipe(res);
+
+                  return;
+            }
+            
+            
+            
+            console.log('onreq',req.url,req.method);
 /*
               if(req.method==='OPTIONS'){
                     var headers   = {
@@ -99,7 +109,7 @@
               }
               
               
-              
+/*              
               res.writeHead(200,headers);
               
               
@@ -121,7 +131,7 @@
                     }
                     
               }//while
-              
+*/              
               
         }//onreq
         

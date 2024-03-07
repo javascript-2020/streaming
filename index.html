@@ -8,7 +8,7 @@
 <input id=stopbtn type=button value=stop>
 
 
-<script src='https://localhost:3011/dist/mp4box.all.min.js'></script>
+<script src='mp4box.all.js'></script>
 
 
 <script>
@@ -17,7 +17,7 @@
 //seg-test.js:d
 
 05-03-24
-
+aa
 */
 
 
@@ -345,7 +345,7 @@
                           'range'   : `bytes=${offset}-${offset+chunksize}`
                     }
               };
-              var res       = await fetch('http://localhost:3012/',opts);
+              var res       = await fetch('http://localhost:3012/video',opts);
               var reader    = res.body.getReader();
               
               var range   = res.headers.get('content-range');
