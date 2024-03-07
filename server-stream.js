@@ -31,7 +31,7 @@
         var server    = http.createServer();
         server.on('listening',e=>console.log('listening 127.0.0.1, '+port));
         server.on('request',onreq);
-        server.listen(port,'127.0.0.1');
+        server.listen(port);
         
         
         
@@ -142,7 +142,7 @@
 
         
 
-        
+
         console.log(process.env.NODE_ENV);
 
 
