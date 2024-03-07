@@ -141,38 +141,45 @@
         }//onreq
         
         
-(function restart(){
+        if(process.env.NODE_ENV!=='production'){
 
-      process.stdout.setEncoding('utf8');
-      process.stdin.setRawMode(true);
-      process.stdin.resume();
-      process.stdin.setEncoding('utf8');
-      
-      var ctrlc   = '\u0003';
-      var esc     = String.fromCharCode(27);
-      process.stdin.on('data',keypressed);
-      
-      function keypressed(key){
-      
-            if(key===ctrlc || key===esc)process.exit();
-            if(key==='r'){
-                  process.stdin.off('data',keypressed);
-                  server.close(()=>{
-                  
-                      if(fh){
-                            fh.close();
-                      }
-                      
-                      var js    = fs.readFileSync(__filename);
-                      var fn    = Function('require','__filename','__dirname',js);
-                      fn(require,__filename,__dirname);
-                      
-                  });
-            }
-            
-      }//keypressed
-      
-})();
+              (function restart(){
+
+                    process.stdout.setEncoding('utf8');
+                    process.stdin.setRawMode(true);
+                    process.stdin.resume();
+                    process.stdin.setEncoding('utf8');
+                    
+                    var ctrlc   = '\u0003';
+                    var esc     = String.fromCharCode(27);
+                    process.stdin.on('data',keypressed);
+                    
+                    function keypressed(key){
+                    
+                          if(key===ctrlc || key===esc)process.exit();
+                          if(key==='r'){
+                                process.stdin.off('data',keypressed);
+                                server.close(()=>{
+                                
+                                    if(fh){
+                                          fh.close();
+                                    }
+                                    
+                                    var js    = fs.readFileSync(__filename);
+                                    var fn    = Function('require','__filename','__dirname',js);
+                                    fn(require,__filename,__dirname);
+                                    
+                                });
+                          }
+                          
+                    }//keypressed
+                    
+              })();
+
+        }//production
+
+
+        
 
 
 
