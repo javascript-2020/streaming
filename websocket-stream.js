@@ -4,7 +4,7 @@
 
                                                                             console.clear();
                                                                             console.log('mediastream via websocket 2');
-        var dir           = 'c:/work/video/';
+        var dir           = './';
         var port          = 3000;
         
         var files_width   = 500;
@@ -23,26 +23,11 @@
         var path            = require('path');
         var cp              = require('child_process');
         
-        var MP4Box          = require('./mp4box.all.min.js');
+        var MP4Box          = require('./mp4box.all.js');
         
-                              require('require-ext').flush();
-                              require('base');
-        var keys            = require(base.libs.node+'keys/v1.0/keys-v1.0.js');
-        var wsmod           = require(base.libs.node+'wsmod/v2.0/wsmod-v2.0.js')();
+        var wsmod           = require('./wsmod-v2.0.js')();
         
         
-        keys.reload=function(){
-        
-              wsmod.list.closeall();
-              server.close(()=>{
-                                                                        console.log('closed');
-                    var js    = fs.readFileSync(__filename);
-                    var fn    = Function('require','__filename','__dirname',js);
-                    fn(require,__filename,__dirname);
-                    
-              });
-              
-        }//reload
         
         
         
@@ -63,7 +48,7 @@
         
         req2.index=(req,res)=>{
                                                                                 console.log('req : index.html');
-              res.writeHead(300,{'content-type':'text-html'});
+              res.writeHead(200,{'content-type':'text/html'});
               res.end(html.index);
               
         }//index
@@ -770,11 +755,11 @@ html.index=`
           
           
           
-          var ws          = new WebSocket('ws:127.0.0.1:3000${ws_url}');
-          ws.binaryType   = 'arraybuffer';
+          var ws          = new WebSocket('ws://streaming-irqb-1pnbldzk--3000--8e1c3ef8.local-credentialless.webcontainer.io${ws_url}');
+          //ws.binaryType   = 'arraybuffer';
           ws.onopen       = e=>output('websocket open');
           ws.onclose      = e=>output('websocket close');
-          ws.onerror      = e=>output(e);
+          ws.onerror      = e=>output(e.message);
           ws.onmessage    = rec;
           ws.send.json    = json=>ws.send(JSON.stringify(json));
           
@@ -1256,6 +1241,42 @@ html.index=`
 
 
 
+
+(function restart(){
+
+  process.stdout.setEncoding('utf8');
+  process.stdin.setRawMode(true);
+  process.stdin.resume();
+  process.stdin.setEncoding('utf8');
+  
+  var ctrlc   = '\u0003';
+  var esc     = String.fromCharCode(27);
+  process.stdin.on('data',keypressed);
+  
+  function keypressed(key){
+  
+        if(key===ctrlc || key===esc)process.exit();
+        if(key==='r'){
+              process.stdin.off('data',keypressed);
+
+              wsmod.list.closeall();
+              server.close(()=>{
+              
+                  if(fh){
+                        fh.close();
+                  }
+                  
+                  var js    = fs.readFileSync(__filename);
+                  var fn    = Function('require','__filename','__dirname',js);
+                  fn(require,__filename,__dirname);
+                  
+              });
+
+        }
+        
+  }//keypressed
+  
+})();
 
 
 
