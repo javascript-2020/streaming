@@ -37,13 +37,18 @@
         
         async function onreq(req,res){
         
-                                                                        console.log('onreq',req.url,req.method);
+                                                                                                console.log('onreq',req.url,req.method);
             if(req.url==='/index.html' || req.url==='/'){
                   res.writeHead(200,{'content-type':'text/html'});
                   var stream  = fs.createReadStream('index.html');
                   stream.pipe(res);
 
                   return;
+            }
+            if(req.url==='/mp4box.all.js'){
+                  res.writeHead(200,{'content-type':'text/javascript'});
+                  var stream = fs.createReadStream('mp4box.all.js');
+                  stream.pipe(res);
             }
             
             
@@ -85,10 +90,10 @@
                           end     = size-1;
                     }
                     if(end>=size-1)end   = size-1;
-                                                                                              console.log(start,end,end-start);
+                                                                                                console.log(start,end,end-start);
                                                                                               
                     if((start>=size)||(end>=size)){
-                                                                                            console.log('out of range');
+                                                                                                console.log('out of range');
                           res.writeHead(416,headers);
                           res.end(req.url+' range not satisfiable');
                           return;

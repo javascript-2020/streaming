@@ -194,7 +194,7 @@ aa
   
   
         mediasource.onsourceopen=function(e){
-                                                                                  //console.log('onsourceopen');
+                                                                                  console.log('onsourceopen');
               download();
               
         }//onsourceopen
@@ -347,7 +347,7 @@ aa
                           'range'   : `bytes=${offset}-${offset+chunksize}`
                     }
               };
-              var res       = await fetch('http://localhost:3012/video',opts);
+              var res       = await fetch('/video',opts);
               var reader    = res.body.getReader();
               
               var range   = res.headers.get('content-range');
