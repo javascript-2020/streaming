@@ -1,0 +1,12 @@
+{
+  "name": "streaming",
+  "version": "1.0.0",
+  "description": "",
+  "main": "streaming.js",
+  "scripts": {
+    "start": "node streaming.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
